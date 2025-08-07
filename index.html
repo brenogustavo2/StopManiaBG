@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StopMania</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f5f7fa;
+      color: #333;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      color: #1976d2;
+    }
+    .category-container,
+    .answer-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1rem;
+      width: 100%;
+      max-width: 900px;
+    }
+    input[type="text"], input[type="number"] {
+      padding: 0.7rem;
+      font-size: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      width: 100%;
+    }
+    button {
+      padding: 0.7rem 1.5rem;
+      font-size: 1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 6px;
+      background-color: #1976d2;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      margin: 1rem 0;
+    }
+    button:hover {
+      background-color: #0d47a1;
+    }
+    .letter-display {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #d32f2f;
+      margin: 1rem 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>StopMania</h1>
+
+  <div class="category-container" id="categories">
+    <input type="text" placeholder="Categoria 1" />
+    <input type="text" placeholder="Categoria 2" />
+    <input type="text" placeholder="Categoria 3" />
+    <input type="text" placeholder="Categoria 4" />
+    <input type="text" placeholder="Categoria 5" />
+    <input type="text" placeholder="Categoria 6" />
+    <input type="text" placeholder="Categoria 7" />
+    <input type="text" placeholder="Categoria 8" />
+  </div>
+
+  <button onclick="startGame()">Começar</button>
+
+  <div class="letter-display" id="letter"></div>
+
+  <div class="answer-container" id="answers" style="display: none;"></div>
+
+  <button onclick="stopGame()" id="stopBtn" style="display: none;">Stop</button>
+
+  <script>
+    function startGame() {
+      const categories = document.querySelectorAll('#categories input');
+      const answerContainer = document.getElementById('answers');
+      answerContainer.innerHTML = '';
+
+      categories.forEach(cat => {
+        if (cat.value.trim()) {
+          const wrapper = document.createElement('div');
+
+          const answerInput = document.createElement('input');
+          answerInput.type = 'text';
+          answerInput.placeholder = cat.value;
+
+          const scoreInput = document.createElement('input');
+          scoreInput.type = 'number';
+          scoreInput.placeholder = 'Pontos';
+
+          wrapper.appendChild(answerInput);
+          wrapper.appendChild(scoreInput);
+          answerContainer.appendChild(wrapper);
+        }
+      });
+
+      const randomLetter = String.fromCharCode(65 + Math.floor(Math.random() * 26));
+      document.getElementById('letter').textContent = 'Letra: ' + randomLetter;
+      answerContainer.style.display = 'grid';
+      document.getElementById('stopBtn').style.display = 'inline-block';
+    }
+
+    function stopGame() {
+      alert('Tempo encerrado! Avalie as respostas e atribua os pontos.');
+    }
+  </script>
+</body>
+</html>
